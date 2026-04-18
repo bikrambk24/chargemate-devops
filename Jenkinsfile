@@ -3,7 +3,7 @@ pipeline {
 
     // These environment variables are used throughout the pipeline
     environment {
-        AWS_REGION         = 'eu-west-2'
+        AWS_REGION         = 'us-east-1'
         ECR_REGISTRY       = '016963913530.dkr.ecr.us-east-1.amazonaws.com' // REPLACE THIS
         STATION_REPO       = 'chargemate/station-service'
         BOOKING_REPO       = 'chargemate/booking-service'
