@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  station-service:
+    build: ./station-service
+    ports:
+      - "3001:3001"
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - PORT=3001
+    networks:
+      - chargemate-network
+
+  booking-service:
+    build: ./booking-service
+    ports:
+      - "3002:3002"
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - PORT=3002
+      - STATION_SERVICE_URL=http://station-service:3001
+    depends_on:
+      - station-service
+    networks:
+      - chargemate-network
+
+networks:
+  chargemate-network:
+    driver: bridge
