@@ -86,7 +86,12 @@ app.delete('/stations/:id', async (req, res) => {
   }
 });
 
+// With this:
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Station Service running on port ${PORT}`));
 
-module.exports = app; // exported for testing
+// Only start listening if this file is run directly (not imported by tests)
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`Station Service running on port ${PORT}`));
+}
+
+module.exports = app;
