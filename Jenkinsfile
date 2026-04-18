@@ -3,16 +3,16 @@ pipeline {
 
     // These environment variables are used throughout the pipeline
     environment {
-        AWS_REGION         = 'us-east-1'
-        ECR_REGISTRY       = '016963913530.dkr.ecr.us-east-1.amazonaws.com' // REPLACE THIS
-        STATION_REPO       = 'chargemate/station-service'
-        BOOKING_REPO       = 'chargemate/booking-service'
-        EB_STATION_APP     = 'chargemate-station'
-        EB_BOOKING_APP     = 'chargemate-booking'
-        EB_STATION_ENV     = 'Chargemate-station-env' // check your EB env name
-        EB_BOOKING_ENV     = 'Chargemate-booking-env'
-        IMAGE_TAG          = "${env.BUILD_NUMBER}" // unique tag per build
-    }
+    AWS_REGION         = 'us-east-1'
+    ECR_REGISTRY       = '016963913530.dkr.ecr.us-east-1.amazonaws.com'
+    STATION_REPO       = 'chargemate/station-service'
+    BOOKING_REPO       = 'chargemate/booking-service'
+    EB_STATION_APP     = 'chargemate-station'
+    EB_BOOKING_APP     = 'chargemate-booking'
+    EB_STATION_ENV     = 'chargemate-station-env'
+    EB_BOOKING_ENV     = 'chargemate-booking-env'
+    IMAGE_TAG          = "${env.BUILD_NUMBER}"
+}
 
     stages {
 
@@ -132,16 +132,16 @@ EOF
 
         // STAGE 6: Health check after deployment
         stage('Health Check') {
-            steps {
-                echo 'Waiting 60 seconds for deployment to settle...'
-                sleep 60
-                sh """
-                    curl -f http://${EB_STATION_ENV}.${AWS_REGION}.elasticbeanstalk.com/health || exit 1
-                    curl -f http://${EB_BOOKING_ENV}.${AWS_REGION}.elasticbeanstalk.com/health || exit 1
-                """
-                echo 'All services healthy!'
-            }
-        }
+    steps {
+        echo 'Waiting 60 seconds for deployment to settle...'
+        sleep 60
+        sh """
+            curl -f http://chargemate-station-env.eba-da2pwshq.us-east-1.elasticbeanstalk.com/health || exit 1
+            curl -f http://chargemate-booking-env.eba-3mbbkhjq.us-east-1.elasticbeanstalk.com/health || exit 1
+        """
+        echo 'All services healthy!'
+    }
+}
     }
 
     // ROLLBACK: runs automatically if any stage fails
