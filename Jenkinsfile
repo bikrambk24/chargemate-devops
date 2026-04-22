@@ -9,8 +9,8 @@ pipeline {
     BOOKING_REPO       = 'chargemate/booking-service'
     EB_STATION_APP     = 'chargemate-station'
     EB_BOOKING_APP     = 'chargemate-booking'
-    EB_STATION_ENV     = 'chargemate-station-env'
-    EB_BOOKING_ENV     = 'chargemate-booking-env'
+    EB_STATION_ENV     = 'Chargemate-station-env'
+    EB_BOOKING_ENV     = 'Chargemate-booking-env'
     IMAGE_TAG          = "${env.BUILD_NUMBER}"
 }
 
